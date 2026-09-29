@@ -49,7 +49,8 @@ REPORT:      ≤15 lines: DONE/BLOCKED · changed file:line or findings with sou
 ```
 
 - Pre-digest context: paste the 5–20 relevant lines instead of "read X to understand".
-- Research helpers mark each finding verified (source opened) or inferred.
+- Research helpers mark each finding verified (source opened) or inferred, and report every
+  "not found" with where they looked (paths, queries, URLs) so it can be checked.
 - One task per agent. Two tasks on the same file → sequential.
 - BLOCKED or wrong → prefer a small inline fix; else continue the **same** agent (SendMessage)
   with a sharper brief rather than a cold re-spawn.
