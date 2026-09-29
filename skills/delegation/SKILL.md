@@ -27,7 +27,8 @@ cache and gets a 5-minute cache lifetime, so it only pays off for bulky or paral
 - The Agent call has no effort parameter: effort comes from agent frontmatter, else it inherits
   the session's. When effort matters, use a defined agent.
 - Never `effort: max` on any agent: highest token burn, spawns nested sub-agents, drifts out of scope;
-  Sonnet 5.5 at max costs more per task than Opus 5.5 and has burned 128K tokens with no answer.
+  Sonnet 5.5 at max costs more per task than Opus 5.5, and in one reported test burned 128K tokens
+  with no answer.
 - A worker that waits on long tests: consider `experimental: {cacheTtl: 1h}` in its frontmatter.
 - Avoid `general-purpose` whenever a restricted agent exists: it inherits every MCP/plugin tool schema.
 
@@ -77,12 +78,12 @@ limits); read line ranges not whole files; `grep -n` before reading; pipe long o
 `tail`; run only named tests; batch independent calls; honor the budget; stop at done-criteria;
 never use production/live flags; never spawn sub-agents; report in the format above.
 
-**Scout** (read-only research): `tools: Read, Grep, Glob, WebFetch, WebSearch`, `model: sonnet`,
+**Scout** (read-only research): `tools: Read, Grep, Glob, WebFetch, WebSearch`, `disallowedTools: mcp__*`, `model: sonnet`,
 `effort: medium`, `maxTurns: 25`, `omitClaudeMd: true`. Prompt: answer only the brief's question;
 cite file:line or URL for every claim; mark each claim verified or inferred; never edit; never
 spawn sub-agents; report in the format above.
 
-**Finalizer**: `tools: Read, Grep, Glob, Bash`, `model: opus`, `effort: high`, `maxTurns: 60`,
+**Finalizer**: `tools: Read, Grep, Glob, Bash`, `disallowedTools: mcp__*`, `model: opus`, `effort: high`, `maxTurns: 60`,
 no Edit/Write. Prompt: read the plan + `git diff <base>` (or the request + the document); check
 done-criteria → bugs/edge cases or factual errors → project safety rules → real simplification
 payoff (no style nitpicks); run the checks; report ≤40 lines: PASS / PASS WITH FIXES / FAIL,

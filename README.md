@@ -11,3 +11,4 @@ Revisit by 2026-10-27 (see the Sonnet 5.5 trial section).
 One-time setup that supports Session hygiene:
 - In each project's `CLAUDE.md`, add: `Compact instructions: preserve the plan path and current step.` (a plan file in `docs/plans/` is not re-injected after compaction).
 - Optional safety net: run `/autocompact 400k` so auto-compaction triggers well before the ~967K default.
+- Don't set `CLAUDE_CODE_SUBAGENT_MODEL_FORCE=1`: it would also force the Opus finalizer onto Sonnet.
