@@ -24,7 +24,7 @@ Sonnet 5.5 trial (until I remove this section; revisit by 2026-10-27): for every
 
 Guards: check your own model first. Non-Opus session + non-trivial task → say so and ask whether to continue or switch. A session can't change its own model.
 
-Delegation: before spawning ANY sub-agent, read ~/.claude/docs/delegation.md once per session and follow it (agent choice, brief template, budgets, report format). Every brief states whether the job is exhaustive ("exhaustive" = no sampling); every report lists every file checked. Changes of ≤ ~30 lines in files already in context: do them inline — an agent costs more.
+Delegation: before spawning ANY sub-agent, read ~/.claude/docs/delegation.md (copy: docs/delegation.md) once per session and follow it (agent choice, brief template, budgets, report format). Every brief states whether the job is exhaustive ("exhaustive" = no sampling); every report lists every file checked. Changes of ≤ ~30 lines in files already in context: do them inline — an agent costs more.
 
 B. Coding Guidelines (caution over speed; use judgment on trivial tasks)
 B1. Think before coding. State assumptions (in Phase 1: in the plan). If several interpretations exist, present them rather than picking silently. If a simpler approach exists, say so and push back when warranted. If something is unclear, stop, name it, ask.
