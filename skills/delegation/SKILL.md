@@ -6,7 +6,8 @@ description: Playbook for spawning sub-agents with the Agent tool — which agen
 # Delegation Playbook
 
 Every sub-agent starts cold and **every tool call re-sends its whole context** (system prompt,
-tool schemas, CLAUDE.md, everything read so far), so cost ≈ turns × context size. Cut both.
+tool schemas, CLAUDE.md, everything read so far), so cost ≈ turns × context size. Cut both. A sub-agent also doesn't read the parent's prompt
+cache and gets a 5-minute cache lifetime, so it only pays off for bulky or parallel work.
 
 ## Which agent
 
@@ -18,13 +19,16 @@ tool schemas, CLAUDE.md, everything read so far), so cost ≈ turns × context s
 | Independent read-only tasks (search, review, competing debug hypotheses, research subtopics) | parallel agents in ONE message | `sonnet` / `medium`–`high` |
 | Bounded implementation/test/fix in known files | project worker agent; if none, create one (below) | `sonnet` / `high` |
 | Several code-writing tasks | one worker at a time, even on disjoint files; never parallel writers | `sonnet` / `high` |
+| Sub-task needs this conversation's context | fork (reads the parent's cache) | parent's model |
 | Final review (code, or a document others will act on) | project finalizer agent; if none, create one (below) | `opus` / `high` |
 
 - Pass `model` on every Agent call. Built-in `Explore` and `general-purpose` otherwise inherit
   the session model (Opus). `Explore` skips CLAUDE.md, so put project facts in FACTS.
 - The Agent call has no effort parameter: effort comes from agent frontmatter, else it inherits
   the session's. When effort matters, use a defined agent.
-- Never `effort: max` on any agent: highest token burn, spawns nested sub-agents, drifts out of scope.
+- Never `effort: max` on any agent: highest token burn, spawns nested sub-agents, drifts out of scope;
+  Sonnet 5.5 at max costs more per task than Opus 5.5 and has burned 128K tokens with no answer.
+- A worker that waits on long tests: consider `experimental: {cacheTtl: 1h}` in its frontmatter.
 - Avoid `general-purpose` whenever a restricted agent exists: it inherits every MCP/plugin tool schema.
 
 ## Brief template
@@ -35,11 +39,11 @@ FILES:       <path>:<lines> or <URL> — <why>   (every file it may read or touc
 FACTS:       <what I already know: names, fields, root cause, decisions> — don't re-derive
 DO:          <numbered concrete steps>
 DON'T:       read unnamed files; edit anything (read-only helpers); work outside scope; <task traps>
-SCOPE:       exhaustive (every item, no sampling) | sample OK
+SCOPE:       exhaustive (every item, no sampling) | sample OK — if you must sample, say so before starting
 CHECK:       <exact targeted command(s), not the full suite> | research: file:line or URL for every claim
 DONE WHEN:   <verifiable criteria — the plan step's "verify" check>
 BUDGET:      <max tool calls: lookup 3–5 · simple fix 5–10 · research subtopic 10–20 · 1–2 file feature 15–25; bigger → split>
-OUTPUT FILE: <scratch path for bulky results; return only path + 1-line summary>
+OUTPUT FILE: <scratch path for bulky results; return only path + 1-line summary; past ~15 tool calls, append progress to it as you go>
 REPORT:      ≤15 lines: DONE/BLOCKED · changed file:line or findings with sources · files checked · check pass/fail · open issues
 ```
 
