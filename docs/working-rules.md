@@ -7,20 +7,24 @@ Default: one Opus session leads the whole task (plan → execute → review). So
 
 Trivial exemption: pure questions/advice, or an obvious edit of ≤ ~10 lines in one file → just do it and say you're treating it as trivial. Everything else:
 
-1. Plan — Opus. Explore only enough to plan; delegate broad searches to Explore (Haiku). Write a self-contained plan file (default docs/plans/<YYYY-MM-DD>-<slug>.md): goal, assumptions and open questions, files + line ranges, steps as 1. [step] → verify: [check] sized as sub-agent briefs, tests, done-criteria, base commit. Update CLAUDE.md only if commands/architecture change. If open questions remain, stop and ask; otherwise continue to Execute in the same session.
+1. Plan — Opus. Explore only enough to plan; delegate broad searches to Explore with model: haiku set explicitly (built-in Explore inherits the session model, i.e. Opus). Write a self-contained plan file (default docs/plans/<YYYY-MM-DD>-<slug>.md): goal, assumptions and open questions, files + line ranges, steps as 1. [step] → verify: [check] sized as sub-agent briefs, tests, done-criteria, base commit. Update CLAUDE.md only if commands/architecture change. If open questions remain, stop and ask; otherwise continue to Execute in the same session.
 2. Execute — Opus leads, Sonnet assists. Opus implements coupled or tricky work itself and dispatches self-contained steps to Sonnet sub-agents (the plan step is the brief; its verify check is DONE WHEN). Opus reviews every worker diff before marking a step done. Fix small gaps yourself and note them in the plan file; ask me only if the goal must change.
-   - Delegate to Sonnet when: the step is fully specified, touches ≤ ~3 files, and has an automated check.
+   - Delegate to Sonnet when: the step is fully specified, touches ≤ ~3 files, has an automated check, and hides no design decision.
    - Keep on Opus: design decisions, cross-cutting refactors, bugs with unclear cause, any step a worker already failed.
    - Escalation: a Sonnet worker fails its check twice → Opus takes the step back. No third retry.
+   - One writer at a time: parallel sub-agents only for read-only work (search, review, competing debug hypotheses). Code-writing workers run one at a time, never two on the same file or on coupled modules.
+   - Sequential edits to the same files, or quick fixes → Opus alone, no sub-agents; splitting only adds coordination cost.
+   - Model & effort: set model explicitly on every spawn (sub-agents and teammates inherit the lead's model and effort otherwise). Workers: medium for read/search, high for review and spec'd edits; never max (highest token burn, spawns nested sub-agents, drifts out of scope).
+   - Trust nothing unverified: re-run a worker's verify check yourself before marking the step done; a worker's "all tests pass" is a claim, not evidence.
 3. Finalize — Opus review, once. When all steps pass, spawn one read-only Opus review agent with fresh context (plan path + base commit only), apply its fixes, re-run tests, report. Verdict FAIL → fix, then one "RE-REVIEW after FAIL". Hard cap: 2 Opus reviews per task; a second FAIL goes to me.
 
 Long-task handoff (optional): if the context is getting heavy (e.g. after a compaction), write current progress into the plan file and suggest: "▶ open a NEW Opus session and say: continue <plan path>".
 
-Sonnet 5.5 trial (until I remove this section): for every Sonnet worker, log one line in the plan file — step | passed first try (Y/N) | Opus rework (none/small/large). Include the tally in the final report.
+Sonnet 5.5 trial (until I remove this section; revisit by 2026-10-27): for every Sonnet worker, log one line in the plan file — step | passed first try (Y/N) | Opus rework (none/small/large). Include the tally and the task's token usage (/usage) in the final report. If Opus + Sonnet workers does not beat Opus alone on tokens, rework and my review time, drop Sonnet workers and tune Opus effort instead.
 
 Guards: check your own model first. Non-Opus session + non-trivial task → say so and ask whether to continue or switch. A session can't change its own model.
 
-Delegation: before spawning ANY sub-agent, read ~/.claude/docs/delegation.md once per session and follow it (agent choice, brief template, budgets, report format). Changes of ≤ ~30 lines in files already in context: do them inline — an agent costs more.
+Delegation: before spawning ANY sub-agent, read ~/.claude/docs/delegation.md once per session and follow it (agent choice, brief template, budgets, report format). Every brief states whether the job is exhaustive ("exhaustive" = no sampling); every report lists every file checked. Changes of ≤ ~30 lines in files already in context: do them inline — an agent costs more.
 
 B. Coding Guidelines (caution over speed; use judgment on trivial tasks)
 B1. Think before coding. State assumptions (in Phase 1: in the plan). If several interpretations exist, present them rather than picking silently. If a simpler approach exists, say so and push back when warranted. If something is unclear, stop, name it, ask.
