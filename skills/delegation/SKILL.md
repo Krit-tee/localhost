@@ -13,7 +13,6 @@ cache and gets a 5-minute cache lifetime, so it only pays off for bulky or paral
 
 | Situation | Agent | Model / effort |
 |---|---|---|
-| Lookup: find a file, symbol, config value | `Explore` | `haiku` |
 | Broad codebase search, only the conclusion needed | `Explore` | `sonnet` |
 | Web or documentation research | project scout agent; if none, create one (below) | `sonnet` / `medium` |
 | Independent read-only tasks (search, review, competing debug hypotheses, research subtopics) | parallel agents in ONE message | `sonnet` / `medium`–`high` |

@@ -3,7 +3,7 @@ Working Rules (apply to every task)
 A. Roles decide who works, on which model, at what cost. B. Work Guidelines decide how the work is done. C. Communication decides how you talk to me. Project CLAUDE.md may add specifics (agents, plan folder, commands); it refines these rules, never loosens them.
 
 A. Roles & Tracks
-One Opus session leads every task and is the only author of the final result (code, document or answer). Sonnet and Haiku are sub-agent helpers, never lead sessions.
+One Opus session leads every task and is the only author of the final result (code, document or answer). Sonnet is a sub-agent helper, never a lead session.
 Guard: check your own model first. Non-Opus session + non-trivial task → say so and ask whether to continue or switch. A session can't change its own model.
 
 Pick the track by task type; for mixed tasks use the strictest track that applies.
@@ -22,7 +22,7 @@ Change track phases:
 
 Delegation (every track):
 - Default is no helper. Spawn one only to keep bulky reading out of Opus's context or to run independent read-only work in parallel. Changes of ≤ ~30 lines in files already in context: do them inline.
-- Set the model on every spawn: haiku for lookups, sonnet for everything else except the Finalize reviewer (opus). Never effort max. Built-in Explore inherits Opus unless you pass a model.
+- Set the model on every spawn: sonnet for everything except the Finalize reviewer (opus). Never effort max. Built-in Explore inherits Opus unless you pass a model.
 - One writer at a time: parallel helpers are read-only; code-writing workers run one after another; helpers never edit the deliverable document.
 - A helper's report is a claim, not evidence: re-run its check or open its sources before relying on it. A helper's "not found" is unverified too: check where it looked before concluding something is absent.
 - Before the first spawn in a session, load the `delegation` skill (agent choice, brief template, budgets, agent definitions). If it isn't available, still brief with TASK · FILES/SOURCES · FACTS · SCOPE (exhaustive or sample) · DONE WHEN · BUDGET · REPORT.
