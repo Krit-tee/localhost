@@ -14,12 +14,12 @@ cache and gets a 5-minute cache lifetime, so it only pays off for bulky or paral
 | Situation | Agent | Model / effort |
 |---|---|---|
 | Broad codebase search, only the conclusion needed | `Explore` | `sonnet` |
-| Web or documentation research | project scout agent; if none, create one (below) | `sonnet` / `medium` |
+| Web or documentation research | project scout agent; if none, built-in fallback (below) | `sonnet` / `medium` |
 | Independent read-only tasks (search, review, competing debug hypotheses, research subtopics) | parallel agents in ONE message | `sonnet` / `medium`–`high` |
-| Bounded implementation/test/fix in known files | project worker agent; if none, create one (below) | `sonnet` / `high` |
+| Bounded implementation/test/fix in known files | project worker agent; if none, built-in fallback (below) | `sonnet` / `high` |
 | Several code-writing tasks | one worker at a time, even on disjoint files; never parallel writers | `sonnet` / `high` |
 | Sub-task needs this conversation's context | fork (reads the parent's cache) | parent's model |
-| Final review (code, or a document others will act on) | project finalizer agent; if none, create one (below) | `opus` / `high` |
+| Final review (code, or a document others will act on) | project finalizer agent; if none, built-in fallback (below) | `opus` / `high` |
 
 - Pass `model` on every Agent call. Built-in `Explore` and `general-purpose` otherwise inherit
   the session model (Opus). `Explore` skips CLAUDE.md, so put project facts in FACTS.
@@ -63,6 +63,10 @@ Finalizer brief: `TASK: final review · PLAN: <path> (or REQUEST: <my request> +
 
 Put them in the project's `.claude/agents/` (committed files also load in cloud sessions) or
 `~/.claude/agents/` (this machine only). Adding them to a repo is a change: mention it in the report.
+A new `agents/` directory loads only after a session restart, so until then use the built-in
+fallback: `Explore` for read-only work (code search, web/docs research, tests, logs), `general-purpose`
+for edits or the finalizer (brief it read-only); pass `model: sonnet` (`opus` for the finalizer) and
+put the matching prompt rules below into the brief.
 
 **Worker**:
 ```

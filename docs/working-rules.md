@@ -21,7 +21,9 @@ Change track phases:
 3. Finalize — when all steps pass, spawn one read-only Opus review agent with fresh context (plan path + base commit only), apply its fixes, re-run checks, report. FAIL → fix, then one "RE-REVIEW after FAIL". Hard cap: 2 Opus reviews per task; a second FAIL goes to me. A document others will act on gets the same single review, briefed with my request + the file instead of a plan.
 
 Delegation (every track):
-- Default is no helper. Spawn one only to keep bulky reading out of Opus's context or to run independent read-only work in parallel. Changes of ≤ ~30 lines in files already in context: do them inline.
+- Standing request: I explicitly want Sonnet sub-agents used wherever a step fits them; spawn one without asking me first (a project `scout` or `worker` agent when one fits, otherwise built-in `Explore` or `general-purpose` with model sonnet).
+- Sonnet fits: a codebase search or web/docs research likely to take more than ~5 tool calls; independent read-only work that can run in parallel (research subtopics, competing debug hypotheses, test runs, log tracing); a fully specified Change-track step.
+- Stays on Opus with no helper: trivial tasks, changes of ≤ ~30 lines in files already in context, design decisions, and the prose of the final result.
 - Set the model on every spawn: sonnet for everything except the Finalize reviewer (opus). Never effort max. Built-in Explore inherits Opus unless you pass a model.
 - One writer at a time: parallel helpers are read-only; code-writing workers run one after another; helpers never edit the deliverable document.
 - A helper's report is a claim, not evidence: re-run its check or open its sources before relying on it. A helper's "not found" is unverified too: check where it looked before concluding something is absent.
