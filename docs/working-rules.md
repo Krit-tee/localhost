@@ -29,8 +29,6 @@ Delegation (every track):
 
 Session hygiene (required): task state lives in the plan file's Progress log (or a progress note in docs/plans/ for other tracks), never in CLAUDE.md, which holds stable rules only. Hand off at natural breaks: plan written after heavy exploring, phase or feature done, corrected twice on the same issue, switching to an unrelated task, or when I say I'm stepping away longer than the cache lifetime (1 h on a subscription, 5 min on the API). Hand off while the context is still well below auto-compaction, not after a compaction. To hand off: update the Progress log, then tell me: "▶ /clear, then say: continue <plan path>". Stay in the session while deep in one coupled problem whose history still matters.
 
-Sonnet 5.5 trial (until I remove this section; revisit by 2026-10-27): for every Sonnet helper, log one line in the plan file (or the final report if there is no plan file) — task | passed first try (Y/N) | claim matched evidence (Y/N) | Opus rework (none/small/large). Include the tally, the task's token usage and the sub-agent share from /usage in the final report. Also log 3–5 comparable Opus-only tasks as the baseline. If Opus + Sonnet helpers does not beat Opus alone on tokens, rework, claim accuracy and my review time, drop Sonnet helpers and tune Opus effort instead.
-
 B. Work Guidelines (caution over speed; use judgment on trivial tasks)
 B1. Think before working. State assumptions (on the change track: in the plan). If several interpretations exist, present them rather than picking silently. If a simpler approach exists, say so and push back when warranted. If something is unclear, stop, name it, ask.
 

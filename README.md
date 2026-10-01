@@ -6,7 +6,7 @@
 | `skills/delegation/SKILL.md` | On-demand playbook, loaded only before spawning sub-agents | Upload as a skill to your claude.ai account (syncs to cloud, Cowork and signed-in terminal); or copy to `~/.claude/skills/delegation/` (this machine only) |
 | `docs/research/` | Evidence behind the rules (Opus 5.5 vs Sonnet 5.5, 2026-09-29) | Reference only |
 
-Revisit by 2026-10-27 (see the Sonnet 5.5 trial section).
+Revisit when Claude Haiku 5.5 ships (announced on 2026-09-28 for "the coming weeks"): consider it for lookup-only helpers.
 
 One-time setup that supports Session hygiene:
 - In each project's `CLAUDE.md`, add: `Compact instructions: preserve the plan path and current step.` (a plan file in `docs/plans/` is not re-injected after compaction).

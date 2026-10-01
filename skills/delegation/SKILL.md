@@ -26,8 +26,8 @@ cache and gets a 5-minute cache lifetime, so it only pays off for bulky or paral
 - The Agent call has no effort parameter: effort comes from agent frontmatter, else it inherits
   the session's. When effort matters, use a defined agent.
 - Never `effort: max` on any agent: highest token burn, spawns nested sub-agents, drifts out of scope;
-  Sonnet 5.5 at max costs more per task than Opus 5.5, and in one reported test burned 128K tokens
-  with no answer.
+  Sonnet 5.5 at max costs more per task than Opus 5.5, and Anthropic's launch page reports it scored
+  lower than at xhigh because it split reviews across many sub-agents, timing out or editing out of scope.
 - A worker that waits on long tests: consider `experimental: {cacheTtl: 1h}` in its frontmatter.
 - Avoid `general-purpose` whenever a restricted agent exists: it inherits every MCP/plugin tool schema.
 
