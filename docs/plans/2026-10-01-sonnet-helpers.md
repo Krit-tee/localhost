@@ -52,3 +52,8 @@ Behavioral check (user, next session): /agents lists scout and worker; a researc
   docs' restart note; skill now says "may not load until a restart".
 - Scout test (Sonnet): fetched the sub-agents docs via WebFetch, 2 tool calls, ~8.9k tokens; its quote
   matched the raw page. Review finding 6 (deferred WebFetch in scout) does not reproduce.
+- Step 6 (follow-up request): add .claude/agents/finalizer.md from SKILL.md:90-94 → verify: frontmatter
+  keys valid, model opus, no Edit/Write; the agent loads and runs this step's own Finalize review.
+  Decisions: + WebFetch (last review's top finding needed a docs page; no WebSearch to avoid open-ended
+  research); + `git status --short` (untracked files missed by `git diff`); no omitClaudeMd (it must
+  read the project's safety rules). Skill template and README row updated to match.

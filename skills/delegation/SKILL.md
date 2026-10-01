@@ -87,8 +87,8 @@ never use production/live flags; never spawn sub-agents; report in the format ab
 cite file:line or URL for every claim; mark each claim verified or inferred; never edit; never
 spawn sub-agents; report in the format above.
 
-**Finalizer**: `tools: Read, Grep, Glob, Bash`, `disallowedTools: mcp__*`, `model: opus`, `effort: high`, `maxTurns: 60`,
-no Edit/Write. Prompt: read the plan + `git diff <base>` (or the request + the document); check
+**Finalizer**: `tools: Read, Grep, Glob, Bash, WebFetch`, `disallowedTools: mcp__*`, `model: opus`, `effort: high`, `maxTurns: 60`,
+no Edit/Write. Prompt: read the plan + `git diff <base>` + `git status --short` (or the request + the document); check
 done-criteria → bugs/edge cases or factual errors → project safety rules → real simplification
 payoff (no style nitpicks); run the checks; report ≤40 lines: PASS / PASS WITH FIXES / FAIL,
 findings ranked `file:line — problem — fix`.
