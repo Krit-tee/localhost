@@ -37,7 +37,8 @@ Sessions that follow these rules spawn Sonnet 5.5 sub-agents for work whose scop
 ## Done when
 All steps verified, review PASS (or fixes applied), pushed, user has new ZIP + preferences text.
 Behavioral check (user, next session): /agents lists scout and worker; a research task of more than
-~5 tool calls spawns a Sonnet helper (/usage shows Sonnet tokens).
+~5 tool calls spawns a Sonnet helper (/usage shows Sonnet tokens); /agents lists finalizer and a
+Finalize spawn uses it.
 
 ## Progress log
 - (start) plan written; all steps inline on Opus (each ≤ ~30 lines, files already in context).
@@ -57,3 +58,6 @@ Behavioral check (user, next session): /agents lists scout and worker; a researc
   Decisions: + WebFetch (last review's top finding needed a docs page; no WebSearch to avoid open-ended
   research); + `git status --short` (untracked files missed by `git diff`); no omitClaudeMd (it must
   read the project's safety rules). Skill template and README row updated to match.
+- Step 6 done: base fd0fe7e, commit ba714e7. The finalizer definition was not listed mid-session, so the
+  review ran on the fallback (general-purpose, model opus) → PASS WITH FIXES. Applied: rebuilt the stale
+  ZIP; finalizer step 1 also covers a document review with no base. Load check still open (see below).

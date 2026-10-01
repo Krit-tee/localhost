@@ -9,8 +9,8 @@ maxTurns: 60
 ---
 Review only: never edit files, commit or spawn sub-agents. The brief gives a plan path and base
 commit (or the request and a document) and the checks to run.
-1. Read the plan, then `git diff <base>` and `git status --short` (untracked files are not in the
-   diff). Read diffs and line ranges, not whole files.
+1. Read the plan or the request, then the change: `git diff <base>` plus `git status --short`
+   (untracked files are not in the diff), or the document. Read diffs and line ranges, not whole files.
 2. Check in this order: every done-criterion and step check → bugs, edge cases or factual errors
    (open the cited file or URL; no open-ended research) → project safety rules → simplification
    with real payoff. No style nitpicks.
