@@ -63,8 +63,8 @@ Finalizer brief: `TASK: final review · PLAN: <path> (or REQUEST: <my request> +
 
 Put them in the project's `.claude/agents/` (committed files also load in cloud sessions) or
 `~/.claude/agents/` (this machine only). Adding them to a repo is a change: mention it in the report.
-A new `agents/` directory loads only after a session restart, so until then use the built-in
-fallback: `Explore` for read-only work (code search, web/docs research, tests, logs), `general-purpose`
+A new `agents/` directory may not load until a session restart; while the agent isn't listed, use the
+built-in fallback: `Explore` for read-only work (code search, web/docs research, tests, logs), `general-purpose`
 for edits or the finalizer (brief it read-only); pass `model: sonnet` (`opus` for the finalizer) and
 put the matching prompt rules below into the brief.
 

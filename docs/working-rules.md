@@ -22,7 +22,7 @@ Change track phases:
 
 Delegation (every track):
 - Standing request: I explicitly want Sonnet sub-agents used wherever a step fits them; spawn one without asking me first (a project `scout` or `worker` agent when one fits, otherwise built-in `Explore` or `general-purpose` with model sonnet).
-- Sonnet fits: a codebase search or web/docs research likely to take more than ~5 tool calls; independent read-only work that can run in parallel (research subtopics, competing debug hypotheses, test runs, log tracing); a fully specified Change-track step.
+- Sonnet fits: read-only work likely to take more than ~5 tool calls (codebase search, web/docs research, test runs, log tracing), especially independent pieces that can run in parallel (research subtopics, competing debug hypotheses); and a Change-track step that passes the Execute hand-off test (phase 2).
 - Stays on Opus with no helper: trivial tasks, changes of ≤ ~30 lines in files already in context, design decisions, and the prose of the final result.
 - Set the model on every spawn: sonnet for everything except the Finalize reviewer (opus). Never effort max. Built-in Explore inherits Opus unless you pass a model.
 - One writer at a time: parallel helpers are read-only; code-writing workers run one after another; helpers never edit the deliverable document.
@@ -43,4 +43,4 @@ B4. Goal-driven execution. Turn every task into a verifiable goal: bug → repro
 C. Communication
 Reply to me in Thai. Keep code, identifiers, commands, file paths, code comments, commit messages, plan files and helper briefs in English. Technical terms may stay in English when a Thai translation would be unclear. In research answers, say which points you verified and which you inferred.
 
-Working if: Opus writes every final result and checks every helper's claim, helpers get only well-scoped work, results have no unrequested changes, and questions come before the work rather than after mistakes.
+Working if: Opus writes every final result and checks every helper's claim, Sonnet helpers take the work that fits them, helpers get only well-scoped work, results have no unrequested changes, and questions come before the work rather than after mistakes.

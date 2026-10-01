@@ -44,4 +44,11 @@ Behavioral check (user, next session): /agents lists scout and worker; a researc
 - Steps 1-4 done and verified (frontmatter keys valid, models/effort as planned, diff scoped).
   Decision: rules name `Explore` as fallback for tests/logs because the scout has no Bash.
   Skill fallback names general-purpose (briefed read-only) for the finalizer.
-- Step 5: Opus finalizer running (general-purpose, model opus: no finalizer definition loads this session).
+- Step 5: Opus finalizer (general-purpose, model opus) → PASS WITH FIXES. Applied: README env-var line
+  (Explore/Plan ignore CLAUDE_CODE_SUBAGENT_MODEL, verified on the raw docs page); "Sonnet fits" now uses
+  the ~5-call cue for all read-only work and points to the phase-2 hand-off test; README copy note covers
+  both destinations; Working-if names Sonnet helper use. Skipped: finalizer.md (outside plan scope).
+- Observed: scout/worker became available mid-session although .claude/agents/ was new, contrary to the
+  docs' restart note; skill now says "may not load until a restart".
+- Scout test (Sonnet): fetched the sub-agents docs via WebFetch, 2 tool calls, ~8.9k tokens; its quote
+  matched the raw page. Review finding 6 (deferred WebFetch in scout) does not reproduce.
